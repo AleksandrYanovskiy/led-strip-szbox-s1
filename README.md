@@ -348,4 +348,4 @@ As a result of the modernization, the LED backlight works again:
 
 There may be another solution to the problem with the operation of the LED backlight.\
 There is always the opportunity to return it “as it was” - by disabling the **Digispark** module.\
-One of the advantages is that you can add any effect yourself.
+One of the advantages is that you can add any RGB effect yourself.
