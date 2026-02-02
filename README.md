@@ -306,7 +306,7 @@ To configure **Arduino IDE** use [ATTinyCore](https://github.com/felias-fogg/ATT
 </div>
 <br>
 
-You also need to add the **Adafruit Neopixel** library:
+It is also necessary to add the **Adafruit Neopixel** library to the **Arduino IDE**:
 <div>
   <p>
     <img src="images/arduino-04.png" alt="Adafruit Neopixel Library" data-canonical-src="images/arduino-04.png" width="400" />

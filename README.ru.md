@@ -306,7 +306,7 @@ ___
 </div>
 <br>
 
-Так же необходимо добавить библиотеку **Adafruit Neopixel**:
+Так же необходимо в **Arduino IDE** добавить библиотеку **Adafruit Neopixel**:
 <div>
   <p>
     <img src="images/arduino-04.png" alt="Библиотека Adafruit Neopixel" data-canonical-src="images/arduino-04.png" width="400" />
