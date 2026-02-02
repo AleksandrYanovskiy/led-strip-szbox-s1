@@ -79,7 +79,6 @@
 //  CHECKSUM:
 //    CHS = byte(signature + theme + intensity + speed)
 //
-// Sketch programming is different from regular Arduino boards.
 
 
 #include <Arduino.h>
