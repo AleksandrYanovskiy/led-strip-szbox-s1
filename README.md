@@ -132,7 +132,10 @@ The **Digispark** board has the following pins:
 <br>
 
 Power from the PC board is connected via the standard connector **JST SH 3pin**.\
-+5V is connected to the 5V pin via a diode (red wire in the diagram below), the common pin is connected to the GND pin (black wire in the diagram below).\
++5V is connected to the 5V pin via a diode (red wire in the diagram below).\
+The common pin is connected to the GND pin (black wire in the diagram below).\
+The center pin is not connected.
+
 In the Arduino sketch described [further](#5-arduino-sketch), the code refers to the names of the pins - `PB0`, `PB1`, etc.\
 In fact, only pins `PB0 PB1 PB2` ​​can be used in **Digispark**.\
 The `PB1` pin, in this case, is connected to the LED on the **Digispark** board, so it was decided to use it as a pin to control the LED module - the activity of the commands being sent is visible.The `PB2` pin is used to read data from the UART, the `PB0` pin can be used to send debugging data to the UART.
