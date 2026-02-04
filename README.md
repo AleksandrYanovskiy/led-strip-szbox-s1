@@ -273,7 +273,7 @@ This variant is used to debug the **Digisdpark** module.
     <p>
       <img src="images/connect-6.png" alt="Connected Digispark module in heat shrink" data-canonical-src="images/connect-6.png" width="400" />
       <br>
-      <em>Connected Digispark module in heat shrink<b>Digispark</b></em>
+      <em>Connected Digispark module in heatshrink <b>Digispark</b></em>
     </p>
   </div>
   <br>
