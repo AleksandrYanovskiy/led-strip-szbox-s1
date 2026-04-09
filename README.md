@@ -2,14 +2,14 @@
 ***English***
 | [Русский](README.ru.md)
 ___
-Solving the problem with the non-working LED strip on the mini PC SZBOX S1 (ACEMAGIC S1)
+Solving the problem with the non-working LED strip on the mini-PC SZBOX S1 (ACEMAGIC S1)
 ___
 ## 1. Background
-When choosing a server for PROXMOX, the mini PC **SZBOX S1 Intel Alder Lake N97** (copy of **ACEMAGIC S1**) on Aliexpress was selected.
+When choosing a server for PROXMOX, the mini-PC **SZBOX S1 Intel Alder Lake N97** (copy of **ACEMAGIC S1**) on Aliexpress was selected.
 
 <div>
   <p align="center">
-    <img src="images/szbox-s1.png" alt="mini PC SZBOX S1" data-canonical-src="images/szbox-s1.png" width="300" />
+    <img src="images/szbox-s1.png" alt="mini-PC SZBOX S1" data-canonical-src="images/szbox-s1.png" width="300" />
     <img src="images/acemagic-s1.png" alt="min PC ACEMAGIC S1" data-canonical-src="images/acemagic-s1.png" width="300" />
     <br>
     <em>SZBOX S1 and ACEMAGIC S1</em>
@@ -20,15 +20,15 @@ When choosing a server for PROXMOX, the mini PC **SZBOX S1 Intel Alder Lake N97*
 The PC easily supports a memory capacity of up to 32GB, despite the fact that the description indicated only a maximum of 16GB.\
 Also, the presence of an information display made this PC simply indispensable for a home server.
 
-Thanks to the project [AceMagic-S1-LED-TFT-Linux](https://github.com/tjaworski/AceMagic-S1-LED-TFT-Linux) (many thanks to the author!) the display and LED bottom backlight worked in Linux without problems.\
+Thanks to the project [AceMagic-S1-LED-TFT-Linux](https://github.com/tjaworski/AceMagic-S1-LED-TFT-Linux) (many thanks to the author!) the display and LED bottom backlight worked in Linux without any problems.\
 But, unfortunately, after a few months a malfunction appeared - the LED backlight stopped working.
 
 ___
 ## 2. Can it be repaired?
-An idea arose to fix the broken LED backlight.\
-The housing was disassembled and the LED module was removed to check it.\
+An idea arose to fix the broken LED-backlight.\
+The housing was disassembled and the LED-module was removed to be checked.\
 The module contains 6 addressable RGB LEDs, and passive elements in the form of a resistor and several capacitors.\
-In fact, the module does not contain control elements, it is simply a set of addressable RGB LEDs.
+In fact, the module does not contain any control elements, it is simply a set of addressable RGB LEDs.
 <div>
   <p>
     <img src="images/led-strip-1.png" alt="LED module" data-canonical-src="images/led-strip-1.png" width="400" />
@@ -48,8 +48,8 @@ In fact, the module does not contain control elements, it is simply a set of add
 </div>
 <br>
 
-It turned out that it is connected to the main board through a connector that can be disconnected and the module removed completely.\
-The module was connected to another mini PC - and the backlight module turned out to be working.
+It turned out that it is connected to the main board via a connector that can be disconnected and the module can be removed completely.\
+The module was connected to another mini-PC - and the backlight module turned out to be working.
 
 There was an attempt to analyze the LED module control circuit.\
 The module is powered by +5V and has one control pin.
@@ -74,7 +74,7 @@ The chip is located on the board near the power button, under the radiator and h
 The chip pin **U31-2** is connected to the module pin **LED-DIN**.\
 Nearby is the **U3** - **CH340N** - **USB to UART TTL Converter** chip.
 
-The connection diagram that managed to draw with the signals on the working chip:
+The connection diagram with the signals on the working chip:
 <div>
   <img src="images/scheme-u31.png" alt="scheme-u31" data-canonical-src="images/scheme-u31.png" width="400" />
 </div>
@@ -84,20 +84,20 @@ On the faulty chip **U31** there are no signals at the following pins:\
 
 It turned out that this chip is either a microcontroller or a special chip that performs the following functions:
 * when the power is turned on - it generates a signal at pin 2, and the LED backlight starts working according to the primary algorithm, even if there are no disks or memory in the PC.
-* the chip can be specified in the LED operating mode by sending a command via UART of a certain type, which it receives on pin 7, which is connected to the **U3-6(TXD)** chip.
+* the chip can be specified in the LED operating mode by sending a command via UART of a certain type, which it receives on pin 7, connected to the **U3-6(TXD)** chip.
 
 The assignment of MOSFET **Q19** and **Q98** could not be determined.\
-One thing is clear - transistors are not needed for RGB LEDs - they do not consume so much current to be switched through these MOSFET switches.
+One thing is clear - transistors are not needed for RGB LEDs - they do not consume that much current to be switched through these MOSFET switches.
 
 At all terminals with a multimeter in diode testing mode, the same voltage drop is observed, as at a working **U3**.\
 The 3rd conclusion raises the question: is it an output or an input? It was not possible to find where it is connected on the board.
-\It is possible that the presence of +5 V on it turns on the chip.
+\It is possible that the presence of +5V on it turns on the chip.
 
 Unfortunately, the search for chips using the specified connections was unsuccessful.
 
 ___
-## 3. What to do?
-Since it was not possible to find a circuit diagram on a mini PC, the question arose - is it possible to restore the operation of the LED module in another way?\
+## 3. What can be done?
+Since it was not possible to find a circuit diagram on a mini-PC, the question arose - is it possible to restore the operation of the LED module in any other way?\
 There is a simple Arduino compatible module with **Attiny85** called **Digispark**.\
 With USB-micro connector:
 <div>
@@ -138,19 +138,19 @@ The center pin is not connected.
 
 In the Arduino sketch described [further](#5-arduino-sketch), the code refers to the names of the pins - `PB0`, `PB1`, etc.\
 In fact, only pins `PB0 PB1 PB2` ​​can be used in **Digispark**.\
-The `PB1` pin, in this case, is connected to the LED on the **Digispark** board, so it was decided to use it as a pin to control the LED module - the activity of the commands being sent is visible.The `PB2` pin is used to read data from the UART, the `PB0` pin can be used to send debugging data to the UART.
+The `PB1` pin, in this case, is connected to the LED on the **Digispark** board, so it was decided to use it as a pin to control the LED module - the activity of the commands being sent is visible. The `PB2` pin is used to read data from the UART, the `PB0` pin can be used to send debugging data to the UART.
 
 ### Variant 1
 The simplest improvement variant.
 <details>
 <summary>Diagram and description</summary>
 <br>
-  No intervention is required in the PC electronics; there is no need to disassemble the mini PC - just remove the side cover with magnets.
+  No intervention is required in the PC electronics; there is no need to disassemble the mini-PC - just remove the side cover with magnets.
 <br>
 <br>
 
 > :exclamation:
-For the LED module to work, it does not need to be connected to the UART. By default, the program code is configured to cycle through all RGB effects one by one and does not need additional commands sent from the UART to work. Any mode can be selected in the sketch and will be repeated endlessly. Therefore, the connection to pins `PB0` and `PB2` can be omitted and soldering on the mini PC board can be avoided.
+For the LED module to work, it does not need to be connected to the UART. By default, the program code is configured to cycle through all RGB effects one by one and does not need any additional commands sent from the UART to work. Any mode can be selected in the sketch and will be repeated endlessly. Therefore, the connection to pins `PB0` and `PB2` can be omitted and soldering on the mini-PC board can be avoided.
 
   <div>
     <p align="center">
@@ -176,7 +176,7 @@ For the LED module to work, it does not need to be connected to the UART. By def
   </div>
   <br>
 
-  In the three pin connector that comes from the **Digispark** and connects to the PC board, the middle pin needs to be removed. It is also necessary to add a Schottky diode, with a minimal voltage drop across it, to the power wire break if you plan to subsequently connect the **Digispark** module to a PC with Arduino for its firmware.This is protection against voltage supply to a mini PC through the **Digispark** module.
+  In the three pin connector that comes from the **Digispark** and connects to the PC board, the middle pin needs to be removed. It is also necessary to add a Schottky diode, with a minimal voltage drop across it, to the power wire break if you plan to subsequently connect the **Digispark** module to a PC with Arduino for its firmware. This is a protection against voltage supply to a mini-PC through the **Digispark** module.
 
 </details>
 
@@ -185,7 +185,7 @@ This variant is more complicated.
 <details>
   <summary>Diagram and description</summary>
   <br>
-    It is necessary to disassemble the mini PC, remove the heatsink, and solder to one contact of the UART chip.
+    It is necessary to disassemble the mini-PC, remove the heatsink, and solder to one contact of the UART chip.
   <br>
   <br>
 
@@ -220,7 +220,7 @@ Connection to **UART** is necessary so that you can programmatically set the des
 
   Resistors on contacts `PB0` and `PB2` are needed to limit the current in case of a conflict between the signals on the **U3** chip and the **Digispark** module.
 
-  The connection to **U3**, which is **CH340N - USB to UART TTL Converter** is made by soldering a wire to pin **6** of the chip on the mini PC board.
+  The connection to **U3**, which is **CH340N - USB to UART TTL Converter** is made by soldering a wire to pin **6** of the chip on the mini-PC board.
 
   <div>
     <img src="images/ch340n.png" alt="ch340n" data-canonical-src="images/ch340n.png" width="300" />
@@ -228,9 +228,9 @@ Connection to **UART** is necessary so that you can programmatically set the des
   <br>
 
   This chip is connected to the USB port on the board.\
-  It is defined as a device **ID 1a86:7523 CH340 serial converter** and is used to programmatically set the LED panel modes.
+  It is defined as a device **ID 1a86:7523 CH340 serial converter** and is used to set the LED panel modes programmatically.
 
-  If soldering on the mini PC board is to be avoided, but really want to control the effects, an external +5V USB-UART module can be used. It connects to any USB port, with a single wire running from the **TXD** pin to the **Digispark**.
+  To avoid soldering on the mini-PC board while maintaining control over the effects, an external +5V USB-UART module can be used. It connects to any USB port, with a single wire running from the **TXD** pin to the **Digispark**.
 
   For example this or similar:
   <div>
@@ -323,7 +323,7 @@ The **Digispark** bootloader works on a different principle than, for example, t
 When power is applied to the **Digispark** board, it immediately goes into bootloader mode and waits for the sketch to load for 60 seconds.\
 This will be indicated in the **Arduino IDE** Output window before flashing the firmware.\
 After loading, if there was one, or after a timeout of 60 seconds, the sketch itself starts working.\
-Therefore, turning on the LED backlight after turning on the mini PC will occur with a slight delay.
+Therefore, the start of the LED backlight after turning on the will occur with a slight delay.
 
 The sketch contains a detailed description of its work.\
 An attempt was made to implement the factory LED backlight modes, and several additional ones were added.
@@ -332,10 +332,10 @@ The speed of operation with **UART** was selected as `4800` as the most stable.T
 By the way, the original **UART** LED backlight at a speed of `9600` also does not work stably.\
 The speed of operation with **UART** can be changed (_SERIAL_SPEED_).
 
-The code also provides for working with the **Arduino UNO** board and +5V strip **WS2812B** of 6 LEDs, for debugging and checking operating modes.\
+The code also provides working with the **Arduino UNO** board and +5V strip **WS2812B** of 6 LEDs, for debugging and checking operating modes.\
 In this case, the standard Serial object is used as **UART**.
 
-As already mentioned [above](#variant-1) - the **Digispark** module can work with LED backlighting without **UART**. By default, when turned on, it will cycle through all programmed effects.
+As already mentioned [above](#variant-1) - the **Digispark** module can work with LED backlighting without **UART**. By default, when turned on, it will the cycle through all programmed effects.
 
 ___
 ## 6. Summary
