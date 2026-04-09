@@ -276,7 +276,7 @@ ___
     <p>
       <img src="images/connect-6.png" alt="Подключенный модуль Digispark в термоусадке" data-canonical-src="images/connect-6.png" width="400" />
       <br>
-      <em>Подключенный модуль Digispark в термоусадке <b>Digispark</b></em>
+      <em>Подключенный модуль <b>Digispark</b> в термоусадке</em>
     </p>
   </div>
   <br>
